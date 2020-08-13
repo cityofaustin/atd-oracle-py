@@ -1,3 +1,6 @@
-# comment
-OracleDatabase/*
+# List of ignored files and directories
+README.md
+OracleDatabase/
 *.yml
+.git/
+.github/
