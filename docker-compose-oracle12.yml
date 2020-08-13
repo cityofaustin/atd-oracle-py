@@ -1,0 +1,24 @@
+version: '2.1'
+services:
+  database:
+    cpuset: "0,4"
+    mem_reservation: 4096m
+    image: oracle/database:11.2.0.2-xe
+    environment:
+      - ORACLE_PWD=mypass
+      - ORACLE_CHARACTERSET=AL32UTF8
+    volumes:
+      - db-data:/opt/oracle/oradata
+    ports:
+      - 1521:1521
+      - 5500:5500
+      - 8080:8080
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile-demo
+    command: "tail -f /dev/null"
+
+volumes:
+  db-data:
