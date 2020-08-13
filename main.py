@@ -29,6 +29,7 @@ def main() -> None:
     cursor.close()
     connection.close()
 
+
 # Start execution if main
 if __name__ == "__main__":
     main()

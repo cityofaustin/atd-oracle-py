@@ -1,0 +1,11 @@
+#
+# Basic usage example
+#
+FROM atddocker/atd-oracle-py:production
+
+# Copy your python script to any workdir
+WORKDIR /app
+COPY main.py  /app/main.py
+
+# Roll your own entrypoint if needed,
+# In this example the default '/bin/sh -c' will suffice.

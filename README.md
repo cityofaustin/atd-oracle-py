@@ -4,6 +4,53 @@ This is a ready-to-run python container that can connect to any Oracle database 
 
 ** IT IS NOT PRECONFIGURED TO CONNECT TO ANY SERVICE, IT SERVES ONLY AS A BASE IMAGE **
 
+### How to Use
+
+1.First, create python script:
+
+```python
+# File Name: main.py
+import cx_Oracle
+
+# Establish the database connection
+connection = cx_Oracle.connect("hr", userpwd, "dbhost.example.com/orclpdb1")
+
+# Obtain a cursor
+cursor = connection.cursor()
+
+# Data for binding
+managerId = 145
+firstName = "Peter"
+
+# Execute the query
+sql = """SELECT first_name, last_name
+         FROM employees
+         WHERE manager_id = :mid AND first_name = :fn"""
+cursor.execute(sql, mid = managerId, fn = firstName)
+
+# Loop over the result set
+for row in cursor:
+    print(row)
+```
+
+2.Then create a docker image:
+
+```dockerfile
+# File Name: Docker-sample
+FROM atddocker/atd-oracle-py:production
+
+# Copy your python script to any workdir
+WORKDIR /app
+COPY main.py  /app/main.py
+```
+3.Build and run your script:
+
+```
+$ docker build -f Dockerfile-sample -t atd-oracle-py-sample .
+$ docker run -it --rm --name oracle-test atd-oracle-py-sample ./main.py
+```
+
+
 ### Build Container Locally
 
 A basic build command will suffice. In the following example, notice
