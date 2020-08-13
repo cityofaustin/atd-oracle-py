@@ -1,0 +1,11 @@
+#
+# Basic usage example
+#
+FROM atddocker/atd-oracle-py:production
+
+# Copy your python script to any workdir
+WORKDIR /app
+COPY main.py  /app/main.py
+
+# Let's use bash for our entrypoint (optional)
+ENTRYPOINT ["/bin/bash"]
