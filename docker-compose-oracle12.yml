@@ -17,7 +17,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: Dockerfile-demo
+      dockerfile: Dockerfile-sample
     command: "tail -f /dev/null"
 
 volumes:
