@@ -76,7 +76,7 @@ and put here for your convenience. To build a test database:
 1. Download the Oracle version you would like to use form [this link](https://www.oracle.com/database/technologies/oracle-database-software-downloads.html)
 and notice that you may only be able to run the Express Editions 11g or 18c.
 2. Place the downloaded RPM or ZIP into the ~/OracleDatabase/dockerfiles/`<version>` folder.
-For version 18c put your RPM file in `18.4.0`, or if 11g put the zip file in `12.2.0.1` and do not decompress/extract it.
+For version 18c put your RPM file in `18.4.0`, or if 11g put the zip file in `11.2.0.2` and do not decompress/extract it.
 3. Build the oracle image:
 - For version 18c: `./buildDockerImage.sh -v 18.4.0 -x`
 - For version 11g: `./buildDockerImage.sh -v 11.2.0.2 -x` 
