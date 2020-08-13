@@ -7,5 +7,5 @@ FROM atddocker/atd-oracle-py:production
 WORKDIR /app
 COPY main.py  /app/main.py
 
-# Let's use bash for our entrypoint (optional)
-ENTRYPOINT ["/bin/bash"]
+# Roll your own entrypoint if needed,
+# In this example the default '/bin/sh -c' will suffice.
