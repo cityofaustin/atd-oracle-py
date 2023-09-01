@@ -1,36 +1,29 @@
-#
-# Basic CI to build and publish ATD's docker images
-#
+# Build and push docker image
+name: Docker Image CI
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master or production branch
 on:
   push:
     branches:
-    - master
     - production
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  main:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - name: "Checkout"
-      uses: actions/checkout@v2
-
-    # Runs a set of commands using the runners shell
-    - name: Build & Publish Container
-      env:
-        ATD_DOCKER_USER: ${{ secrets.ATD_DOCKER_USER }}
-        ATD_DOCKER_PASS: ${{ secrets.ATD_DOCKER_PASS }}
-      run: |
-        export BRANCH_NAME=${GITHUB_REF##*/}
-        source ./.github/workflows/docker-helper.sh
-        build_container
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.ATD_DOCKER_USER }}
+          password: ${{ secrets.ATD_DOCKER_PASS }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v4
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/atd-oracle-py:production
+            ${{ secrets.DOCKER_USERNAME }}/atd-oracle-py:latest
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
