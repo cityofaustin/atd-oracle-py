@@ -23,7 +23,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/atd-oracle-py:production
-            ${{ secrets.DOCKER_USERNAME }}/atd-oracle-py:latest
+            ${{ secrets.ATD_DOCKER_USER }}/atd-oracle-py:production
+            ${{ secrets.ATD_DOCKER_USER }}/atd-oracle-py:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
